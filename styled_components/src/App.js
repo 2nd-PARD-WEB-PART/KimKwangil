@@ -1,17 +1,15 @@
 import logo from './logo.svg';
 import styled from 'styled-components';
+import Button from './Button'
+import DangerButton from './DangerButton.js'
 
-const Button = styled.button`
-  background-color: #ffcc33;
-  width : 100px;
-  height : 50px;
-  font-size : 15px;
-`;
 
 function App() {
   return (
     <div>
-      <Button>안녕하세요</Button>
+      <Button color="black">안녕하세요</Button>
+      <Button>empty qjxms</Button>
+      <DangerButton>밥드셨나요?</DangerButton>
     </div>
   );
 }
