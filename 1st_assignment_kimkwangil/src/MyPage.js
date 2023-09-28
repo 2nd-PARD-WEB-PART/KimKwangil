@@ -92,12 +92,12 @@ function Toggle() {
                     <p>저장됨</p>
                 </div>
             </div>
-            <div className="section_toggle_first">
+            <iv className="section_toggle_first">
                 <img src={Tagged} alt=""></img>
                 <div className="section_toggle_first_first">
                     <p>태그됨</p>
                 </div>
-            </div>
+            </iv>
             {/*
                 <Category value="Posts" name="게시물"></Category>
                 <Category value="Save" name="저장됨"></Category>
