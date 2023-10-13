@@ -1,9 +1,11 @@
-import './Profile.css';
-import MyPage from './MyPage';
-
+import Width from "./Width";
+import KKI_Sticker from './img/KKI_Sticker.png';
 function Profile() {
     return (
-        <MyPage></MyPage>  
+        <div>
+            <Width>
+            </Width>
+        </div>
     );
 
 }
