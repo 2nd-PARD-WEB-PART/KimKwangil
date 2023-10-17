@@ -138,7 +138,7 @@ function EditProfile(props) {
         // 여기서 수정된 데이터(newData)를 부모 컴포넌트에 전달
         onUserDataChange(newData);
         navigate('/');
-
+        alert("수정 되었습니다.");
     };
 
     return (

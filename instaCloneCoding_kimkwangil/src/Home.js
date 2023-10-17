@@ -10,6 +10,7 @@ import SharePosts from './img/Icons/SharePosts.png';
 import Comment from './img/Icons/Comment.png';
 import Save from './img/Icons/Save.png';
 import Emoji from './img/Icons/Emoji.png';
+import {Link} from "react-router-dom";
 
 const SectionMain = styled.div `
     width: 935px;
@@ -124,6 +125,12 @@ const MyComment = styled.div `
         span{
             margin-right: 20px;
         }
+        div {
+            display: flex;
+            justify-content: end;
+            margin : 0;
+            padding : 0;
+        }
     }
 
 `;
@@ -175,11 +182,13 @@ const InputComment = styled.div `
 
 `;
 let click = 1;
+let click2 = 1;
 
 function Content(props) {
     const [newData, setNewData] = useState(props.myData);
     const [heartnum, setHeartnum] = useState(1069);
     const [isActive, setIsActive] = useState(true);
+    const [isActive2, setIsActive2] = useState(true);
     const [comment, setComment] = useState(""); // 댓글 내용을 저장할 상태
     const [comments, setComments] = useState([]); // 댓글 목록을 저장할 상태
 
@@ -192,6 +201,18 @@ function Content(props) {
         } else {
             decreaseData();
             setIsActive(true)
+        }
+
+    };
+
+    const compareClick2 = () => {
+        click2 = click2 * -1;
+        if (click2 === -1) {
+
+            setIsActive2(false);
+        } else {
+
+            setIsActive2(true)
         }
 
     };
@@ -233,7 +254,9 @@ function Content(props) {
         <SectionMain>
             <SectionFirst>
                 <SectionFristData>
-                    <img src={KkiSticker} alt=""></img>
+                    <Link to="../MyPage">
+                        <img src={KkiSticker} alt=""></img>
+                    </Link>
                     <p>
                         <strong>{newData.name}</strong>
                     </p>
@@ -270,13 +293,22 @@ function Content(props) {
                     <div>
                         <ul>
                             {
-                                comments.map(
-                                    (comment, index) => (<li key={index}>
+                                comments.map((comment, index) => (
+                                    <li key={index} id="li1">
                                         <span>
                                             <strong>{newData.name}</strong>
                                         </span>
-                                        {comment}</li>)
-                                )
+                                        {comment}
+                                        <div>
+                                            <Img
+                                                src={!isActive2
+                                                    ? FullHeart
+                                                    : EmptyHeart}
+                                                alt=""
+                                                onClick={compareClick2}></Img>
+                                        </div>
+                                    </li>
+                                ))
                             }
                         </ul>
                     </div>
@@ -289,9 +321,8 @@ function Content(props) {
                             placeholder="댓글 달기..."
                             value={comment}
                             onChange={handleCommentChange}
-                            onKeyPress={handleKeyPress}>
-                            </input>
-                        
+                            onKeyPress={handleKeyPress}></input>
+
                     </div>
                     <div id="div1">
                         <button id="myButton" onClick={handlePostComment}>게시</button>

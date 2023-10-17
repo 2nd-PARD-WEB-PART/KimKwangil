@@ -24,12 +24,12 @@ function Empty() {
 function Menu() {
     return (
         <div className="section_header_nav">
-            <Link to="/Content">
+            <Link to="/">
                 <img src={Home_fill} alt=""></img>
             </Link>
             <img src={NewPosts} alt=""></img>
             <img src={ActivityFeed} alt=""></img>
-            <Link to="/">
+            <Link to="/MyPage">
                 <img src={KKI_Sticker} width="22px" alt="" id = "img1"></img>
             </Link>
         </div>

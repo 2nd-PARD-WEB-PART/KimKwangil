@@ -230,11 +230,11 @@ function MyPage(props) {
                 <SectionBodyContent>
                     <SectionBodyContent1>
                         <p className='p1'>{newData.name}</p>
-                        <Link to="./EditProfile">
+                        <Link to="../EditProfile">
                             <button className='button1'>프로필 편집</button>
                         </Link>
 
-                        <Link to="./EditProfile">
+                        <Link to="../EditProfile">
                             <img src={Options} alt=""></img>
                         </Link>
                     </SectionBodyContent1>

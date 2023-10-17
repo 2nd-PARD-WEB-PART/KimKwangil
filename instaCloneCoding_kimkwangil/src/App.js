@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import MyPage from './MyPage';
-import Profile from './Profile';
+import Home from './Home';
 import EditProfile from './EditProfile';
 import Layout from './Layout';
-import Content from './Hoem';
+import Content from './Home';
 
 function App() {
     // 초기 유저 정보
@@ -27,8 +27,8 @@ function App() {
     return (
         <Routes>
             <Route path="/" element={<Layout />}>
-                <Route index="index" element={<MyPage myData={userInfo} />} />
-                <Route path="/Profile" element={<Profile myData={userInfo} />} />
+                <Route index="index" element={<Home myData={userInfo} />} />
+                <Route path="/MyPage" element={<MyPage myData={userInfo} />} />
                 <Route path="/EditProfile" element={<EditProfile myData={userInfo} onUserDataChange={updateUserInfo} />} />
                 <Route path="/Content" element={<Content myData={userInfo} />} />
             </Route>
