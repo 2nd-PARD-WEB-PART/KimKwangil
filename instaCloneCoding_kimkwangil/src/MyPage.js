@@ -8,13 +8,16 @@ import Tagged from './img/Icons/Tagged.png';
 import Content1 from './img/content1.png';
 import Content2 from './img/content2.png';
 import styled from 'styled-components';
-
-import Width from './Width';
+import {useState} from 'react';
 
 const SectionMain = styled.div `
+
     width: 935px;
     margin: 0 auto;
     background: var(--Dark-white, #FAFAFA);
+    a{
+        text-decoration: none;
+    }
 `;
 
 const SectionBody = styled.div `
@@ -37,9 +40,9 @@ const SectionContent = styled.div `
 function Content(props) {
     return (
         <SectionContent>
-            <a href="https://www.naver.com">
-                <img src={props.value} alt=''></img>
-            </a>
+            {/* <a href=""> */}
+            <img src={props.value} alt=''></img>
+            {/* </a> */}
         </SectionContent>
     );
 };
@@ -75,15 +78,15 @@ function MyContents() {
     return (
 
         <SectionData>
-            <Link to="/Content">
-                <Content value={Content1}></Content>
-            </Link>
-            <Link to="/Content">
-                <Content value={Content2}></Content>
-            </Link>
-            <Link to="/Content">
-                <Content value={Content1}></Content>
-            </Link>
+            {/* <Link to="/Content"> */}
+            <Content value={Content1}></Content>
+            {/* </Link> */}
+            {/* <Link to="/Content"> */}
+            <Content value={Content2}></Content>
+            {/* </Link> */}
+            {/* <Link to="/Content"> */}
+            <Content value={Content1}></Content>
+            {/* </Link> */}
 
         </SectionData>
     );
@@ -98,7 +101,7 @@ function MydataInfo(props) {
         </SectiobBodyContent>
     )
 }
-const SectionToggle = styled.div`
+const SectionToggle = styled.div `
     width: 935px;
     height: 52px;
     margin: 0 auto;
@@ -171,8 +174,10 @@ const SectionBodyContent = styled.div `
         margin-left: 20px;
         border-radius: 5px;
         height : 80%;
-        background-color: gray;
-        border : none;
+        /* background-color: gray; */
+        border : 1px solid gray;
+        color : black;
+        font-size: 15px;
     }
 
     img{
@@ -188,6 +193,7 @@ const SectionBodyContent1 = styled.div `
     * {
         display: inline;
     }
+
 
 `;
 const SectionBodyContent2 = styled.div `
@@ -210,7 +216,10 @@ const SectiobBodyContent3 = styled.p `
     margin: 0;
 `;
 
-function MyPage() {
+function MyPage(props) {
+
+    const [newData, setNewData] = useState(props.myData);
+
     return (
         <SectionMain>
             <SectionBody>
@@ -220,21 +229,23 @@ function MyPage() {
 
                 <SectionBodyContent>
                     <SectionBodyContent1>
-                        <p className='p1'>we_pard</p>
+                        <p className='p1'>{newData.name}</p>
                         <Link to="./EditProfile">
                             <button className='button1'>프로필 편집</button>
                         </Link>
 
-                        <img src={Options} alt=""></img>
+                        <Link to="./EditProfile">
+                            <img src={Options} alt=""></img>
+                        </Link>
                     </SectionBodyContent1>
 
                     <SectionBodyContent2>
-                        <MydataInfo button="게시물" data="1"></MydataInfo>
+                        <MydataInfo button="게시물" data="3"></MydataInfo>
                         <MydataInfo button="팔로워" data="255"></MydataInfo>
                         <MydataInfo button="팔로우" data="255"></MydataInfo>
                     </SectionBodyContent2>
 
-                    <SectiobBodyContent3>Pay it forward</SectiobBodyContent3>
+                    <SectiobBodyContent3>{newData.introduction}</SectiobBodyContent3>
 
                 </SectionBodyContent>
             </SectionBody>

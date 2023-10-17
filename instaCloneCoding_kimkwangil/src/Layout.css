@@ -15,7 +15,7 @@
 .section_header {
     width: 935px;
     height: 36px;
-    padding-top: 9px;
+    padding-top: 20px;
     padding-bottom: 8px;
     margin: 0 auto;
     /* background-color: aqua; */
@@ -43,4 +43,8 @@
     height: 22px;
     padding-top: 7px;
     padding-bottom: 7px;
+}
+
+#img1{
+    border-radius: 50%;
 }

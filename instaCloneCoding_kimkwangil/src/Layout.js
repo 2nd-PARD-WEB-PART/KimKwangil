@@ -4,13 +4,13 @@ import Home_fill from './img/Icons/Home-fill.png';
 import NewPosts from './img/Icons/NewPosts.png';
 import ActivityFeed from './img/Icons/ActivityFeed.png';
 import KKI_Sticker from './img/KKI_Sticker.png';
-import { Outlet } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import {Outlet} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 function Logo() {
     return (
         <div className="section_header_logo">
-            <Link to = "/"><img src={image} alt=""></img></Link>
+            <img src={image} alt=""></img>
         </div>
     );
 }
@@ -24,10 +24,14 @@ function Empty() {
 function Menu() {
     return (
         <div className="section_header_nav">
-            <img src={Home_fill} alt=""></img>
+            <Link to="/Content">
+                <img src={Home_fill} alt=""></img>
+            </Link>
             <img src={NewPosts} alt=""></img>
             <img src={ActivityFeed} alt=""></img>
-            <img src={KKI_Sticker} width="22px" alt=""></img>
+            <Link to="/">
+                <img src={KKI_Sticker} width="22px" alt="" id = "img1"></img>
+            </Link>
         </div>
     );
 }
@@ -37,7 +41,9 @@ function Layout() {
         <div>
             <header>
                 <div className="section_header">
-                    <Logo></Logo>
+                    <Link to="/Content">
+                        <Logo></Logo>
+                    </Link>
                     <Empty></Empty>
                     <Menu></Menu>
                 </div>
