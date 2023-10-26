@@ -250,6 +250,15 @@ function Content(props) {
             }
         }
     };
+
+    const [commentHearts, setCommentHearts] = useState(new Array(comments.length).fill(false));
+
+    const handleCommentHeartClick = (index) => {
+        const updatedCommentHearts = [...commentHearts];
+        updatedCommentHearts[index] = !updatedCommentHearts[index];
+        setCommentHearts(updatedCommentHearts);
+    };
+
     return (
         <SectionMain>
             <SectionFirst>
@@ -300,12 +309,17 @@ function Content(props) {
                                         </span>
                                         {comment}
                                         <div>
-                                            <Img
+                                            {/* <Img
                                                 src={!isActive2
                                                     ? FullHeart
                                                     : EmptyHeart}
                                                 alt=""
-                                                onClick={compareClick2}></Img>
+                                                onClick={compareClick2}></Img> */}
+                                        <Img
+                                            src={commentHearts[index] ? FullHeart : EmptyHeart}
+                                            alt=""
+                                            onClick={() => handleCommentHeartClick(index)}
+                                        />
                                         </div>
                                     </li>
                                 ))
