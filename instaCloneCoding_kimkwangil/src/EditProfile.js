@@ -72,6 +72,9 @@ const EditContent = styled.div `
 
     }   
     table > tr > td{
+        p{
+            margin : 0;
+        }
         label{
             font-size: 15px;
         }
@@ -127,11 +130,24 @@ width : 40px;
 height : 40px;
     border-radius : 50%;
 `;
+
+const FileInput = styled.input`
+  display: none; /* 숨길 수 있도록 설정 */
+`;
+
+const FileInputLabel = styled.label`
+
+    color: #0095F6;
+    border-radius: 4px;
+    cursor: pointer;
+`;
+
 function EditProfile(props) {
     const navigate = useNavigate();
     const { myData, onUserDataChange } = props;
     const [newData, setNewData] = useState(myData);
     const Fixedname = myData.name;
+    const [isDataChanged, setIsDataChanged] = useState(false);
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
@@ -139,6 +155,25 @@ function EditProfile(props) {
         onUserDataChange(newData);
         navigate('/');
         alert("수정 되었습니다.");
+    };
+
+    const handleInputChange = (e) => {
+        const fieldName = e.target.name; // input 요소의 name 속성을 가져옴
+        const fieldValue = e.target.value;
+        // setNewData({ ...newData, email: e.target.value }); // 예시로 name 필드만 업데이트
+        setNewData({ ...newData, [fieldName]: fieldValue });
+        // setIsDataChanged(true); // 입력값이 변경되면 상태를 true로 설정
+            if (myData !=newData) {
+                let button = document.getElementById("submitButton");
+                button.style.backgroundColor = "#2E9AFE";
+            } else {
+                let button = document.getElementById("submitButton");
+                button.style.backgroundColor = "rgba(0, 149, 246, 0.25)";
+        }
+    };
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        // 파일 관련 작업 수행
     };
 
     return (
@@ -172,7 +207,15 @@ function EditProfile(props) {
                             </td>
                             <td>
                                 <p>{Fixedname}</p>
-                                <input type="file" id="fileTitle"></input>
+                                    {/* <input type="file" id="fileTitle"></input> */}
+                                <FileInputLabel htmlFor="fileTitle">프로필사진 바꾸기</FileInputLabel>
+                                <FileInput
+                                type="file"
+                                id="fileTitle"
+                                onChange={handleFileChange}
+                                />
+                                        
+                                
                             </td>
                         </tr>
                         <tr>
@@ -180,7 +223,12 @@ function EditProfile(props) {
                                 <label>사용자 이름</label>
                             </td>
                             <td>
-                                <MyInput type="text" value={newData.name} onChange={(e) => setNewData({ ...newData, name: e.target.value })} ></MyInput>
+                                <MyInput
+                                        type="text"
+                                        name = "name"
+                                    value={newData.name}
+                                    onChange={handleInputChange}
+                                ></MyInput>
                             </td>
                         </tr>
                         <tr>
@@ -188,7 +236,7 @@ function EditProfile(props) {
                                 <label>소개</label>
                             </td>
                             <td>
-                                <textarea value={newData.introduction} onChange={(e) => setNewData({ ...newData, introduction: e.target.value })} ></textarea>
+                                <textarea name = "introduction" value={newData.introduction} onChange={handleInputChange} ></textarea>
                             </td>
                         </tr>
                         <tr>
@@ -196,7 +244,7 @@ function EditProfile(props) {
                                 <label>웹사이트</label>
                             </td>
                             <td>
-                                <MyInput type="text" value={newData.website}onChange={(e) => setNewData({ ...newData, website: e.target.value })} ></MyInput>
+                                <MyInput type="text" name = "website"  value={newData.website}onChange={handleInputChange} ></MyInput>
                             </td>
                         </tr>
                         <tr>
@@ -204,7 +252,7 @@ function EditProfile(props) {
                                 <label>이메일</label>
                             </td>
                             <td>
-                                <MyInput type="text" value={newData.email} onChange={(e) => setNewData({ ...newData, email: e.target.value })} ></MyInput>
+                                <MyInput type="text" name = "email"  value={newData.email} onChange={handleInputChange} ></MyInput>
                             </td>
                         </tr>
                         <tr>
@@ -212,7 +260,7 @@ function EditProfile(props) {
                                 <label>성별</label>
                             </td>
                             <td>
-                                <MyInput type="text" value={newData.gender} onChange={(e) => setNewData({ ...newData, gender: e.target.value })}></MyInput>
+                                <MyInput type="text" name = "gender" value={newData.gender} onChange={handleInputChange}></MyInput>
                             </td>
                         </tr>
                         <tr>

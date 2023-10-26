@@ -1,5 +1,5 @@
 function MyName(props) {
-    return (<div>Hello, {props.nam}!</div>);
+    return (<div>Hello, {props.name}!</div>);
 }
 
 MyName.defaultProps = {

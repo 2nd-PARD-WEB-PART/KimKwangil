@@ -9,8 +9,9 @@ function Index() {
             <Link to="../seminar_1/Form">실습 - Form</Link>
             <br/>
             <Link to="../seminar_1/DefaultProps">실습 - DefaultProps</Link>
+            <br/>
+            <Link to="../seminar_1/Event">실습 - Event</Link>
 
-            
         </div>
     );
 
