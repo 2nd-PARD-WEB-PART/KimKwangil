@@ -1,5 +1,6 @@
 import {createContext, useContext, useMemo, useState} from 'react';
 import MyMediaQuery from './MyMediaQuery';
+import ContextApi from './ContextApi';
 
 const MyContext = createContext("");
 
@@ -36,7 +37,8 @@ function App() {
 
         //     </CounterProiver>
       // </div>
-      <MyMediaQuery></MyMediaQuery>
+        //   <MyMediaQuery></MyMediaQuery>
+        <ContextApi></ContextApi>
     )
 }
 
