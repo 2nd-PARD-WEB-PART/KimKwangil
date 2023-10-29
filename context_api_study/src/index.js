@@ -5,11 +5,12 @@ import App from './App';
 import ContextApi from './ContextApi';
 import ContextApiCounter from './ContextApiCounter';
 import reportWebVitals from './reportWebVitals';
+import ContextApiCounterDivide from './ContextApiCounterDivide.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ContextApiCounter />
+    <ContextApiCounterDivide />
   </React.StrictMode>
 );
 
