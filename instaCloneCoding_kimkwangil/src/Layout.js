@@ -1,5 +1,4 @@
 import image from './img/Logo.png';
-import './Layout.css';
 import Home_fill from './img/Icons/Home-fill.png';
 import NewPosts from './img/Icons/NewPosts.png';
 import ActivityFeed from './img/Icons/ActivityFeed.png';
@@ -11,6 +10,13 @@ import MediaQuery from 'react-responsive';
 import Instar from './img/Icons/instar.jpg';
 import EmptyHeart from './img/Icons/ActivityFeed.png';
 
+// Body를 스타일화한 Component입니다.
+const Body = styled.div `
+    *{
+            background: var(--Dark-white, #FAFAFA);
+    }
+
+`;
 // 인스타그램 로고를 관리하는 Component입니다.
 const Logo1 = styled.div `
     display: flex;
@@ -206,7 +212,7 @@ function Menu() {
 // return되는 Layout conponent입니다.
 function Layout() {
     return (
-        <div>
+        <Body>
             {/* 상단 Header 태그입니다. */}
             <MyHeader>
                 {/* width가 450px 이상일 때만 보여지는 태그입니다. */}
@@ -238,9 +244,7 @@ function Layout() {
                         </Link>
 
                         {/* 검색 input */}
-                        <SearchInput placeholder='검색' />
-                        
-                        {/* 하트 이미지 */}
+                        <SearchInput placeholder='검색'/> {/* 하트 이미지 */}
                         <img src={EmptyHeart} alt=""/>
                     </Header1>
                 </MediaQuery>
@@ -266,7 +270,7 @@ function Layout() {
                 </MyFootter>
             </MediaQuery>
 
-        </div>
+        </Body>
     );
 }
 export default Layout;
