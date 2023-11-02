@@ -4,7 +4,7 @@ import MyPage from './MyPage';
 
 function App() {
     return (
-        <Route></Route>
+        <MyPage></MyPage>
     );
 
 }
