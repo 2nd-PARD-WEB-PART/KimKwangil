@@ -11,25 +11,54 @@ import Comment from './img/Icons/Comment.png';
 import Save from './img/Icons/Save.png';
 import Emoji from './img/Icons/Emoji.png';
 import {Link} from "react-router-dom";
+import MediaQuery from 'react-responsive';
 
 const SectionMain = styled.div `
-    width: 935px;
-    height : 880px;
     margin: 0 auto;
-    /* background: var(--Dark-white, #FAFAFA); */
     *{
         padding : 0;
         margin: 0;
     }
+    @media (min-width: 750px) {
+        width: 935px;
+        height : 880px;
+
+        
+    }
+
+    @media (max-width :750px) and (min-width: 450px){
+        
+        width: 500px;
+        height : 1060px;
+        * {
+            margin : 0;
+            padding : 0;
+        }
+    }
+    @media (max-width :450px){
+
+    }
+    
 `;
+
 const SectionFirst = styled.div `
-    height : 100px;
     text-align: right;
+    @media (min-width: 750px) {
+    height : 100px;
+    }
+    @media (max-width :750px) and (min-width: 450px){
+        display: none;
+    }
+    @media (max-width :450px){
+        display: none;
+    }
 `;
 
 const SectionFristData = styled.div `
+
+    @media (min-width: 750px) {
+        text-align: left;
     padding-top: 20px;
-    text-align: left;
     display: inline-block;
     width : 35%;
     height : 100%;
@@ -42,38 +71,45 @@ const SectionFristData = styled.div `
     p{
         padding-top: 10px;
     }
+    @media (max-width :750px) and (min-width: 450px){
+    }
+    @media (max-width :450px){
+    }
+}
 `;
 
 const Img = styled.img `
     width :20px;
     height : 20px;
+    /* @media (min-width: 750px) {
+
+    }
+    @media (max-width :750px) and (min-width: 450px){
+        width : 20px;
+        height : 20px;
+    }
+    @media (max-width :450px){
+    } */
 
 `;
 
-const SectionSecondData = styled.div `
-    width: 70vh;
-    /* height : 80vh; */
-    
+const SectionSecond = styled.div `
     border: 1px solid rgba(0, 0, 0, .1);
-
-
+    width: 500px;
+    
     header{
-        height: 7%;
         display: flex;
         align-items: center;
-        
         img{
-            width: 8%;
+            box-sizing: border-box;
             border-radius: 50%;
             margin-right: 5%;
             margin-left : 2%;
             margin-bottom: 5px;
-            box-sizing: border-box;
         }
         span{
             font-weight: bold;
         }
-
         div {
             text-align: right;
             width : 100%;
@@ -91,6 +127,32 @@ const SectionSecondData = styled.div `
         }
 
     }
+    @media (min-width: 750px) {
+       
+        header{
+            height: 7%;
+            
+            
+            img{
+                width: 8%;
+                
+            } 
+
+        
+        }
+    }
+    
+    @media (max-width :750px) and (min-width: 450px){
+        margin-top: 100px;
+        header{
+            height : 5%;
+            img{
+                width : 8%;
+            }
+        }
+    }
+    @media (max-width :450px){
+    }
 
 `;
 
@@ -107,11 +169,19 @@ const UserAction = styled.div `
     div{
         width : 100%;
         text-align: right;
+    }
+    @media (min-width: 750px) {
 
     }
+    @media (max-width :750px) and (min-width: 450px){
+    }
+    @media (max-width :450px){
+    }
+
 `;
 
 const MyComment = styled.div `
+    /* @media (min-width: 750px) { */
     width: 100%;
     border-bottom :  1px solid rgba(0, 0, 0, .1);
     padding : 10px;
@@ -131,11 +201,17 @@ const MyComment = styled.div `
             margin : 0;
             padding : 0;
         }
+    /* } */
+    @media (max-width :750px) and (min-width: 450px){
     }
+    @media (max-width :450px){
+    }
+}
 
 `;
 
 const InputComment = styled.div `
+    /* @media (min-width: 750px) { */
     width : 100%;
     height : 50px;
     padding : 10px;
@@ -163,7 +239,6 @@ const InputComment = styled.div `
             }
         }
     }
-    
     #div1{
         width: 10%;
         text-align: right;
@@ -178,6 +253,13 @@ const InputComment = styled.div `
             }
         }
     }
+    /* } */
+    @media (max-width :750px) and (min-width: 450px){
+    }
+    @media (max-width :450px){
+    }
+    
+  
     
 
 `;
@@ -251,7 +333,9 @@ function Content(props) {
         }
     };
 
-    const [commentHearts, setCommentHearts] = useState(new Array(comments.length).fill(false));
+    const [commentHearts, setCommentHearts] = useState(
+        new Array(comments.length).fill(false)
+    );
 
     const handleCommentHeartClick = (index) => {
         const updatedCommentHearts = [...commentHearts];
@@ -260,91 +344,87 @@ function Content(props) {
     };
 
     return (
-        <SectionMain>
-            <SectionFirst>
-                <SectionFristData>
-                    <Link to="../MyPage">
+        <div>
+            <SectionMain>
+                <SectionFirst>
+                    <SectionFristData>
+                        <Link to="../MyPage">
+                            <img src={KkiSticker} alt=""></img>
+                        </Link>
+                        <p>
+                            <strong>{newData.name}</strong>
+                        </p>
+                    </SectionFristData>
+
+                </SectionFirst>
+                <SectionSecond>
+                    <header>
                         <img src={KkiSticker} alt=""></img>
-                    </Link>
-                    <p>
-                        <strong>{newData.name}</strong>
-                    </p>
-                </SectionFristData>
+                        <span>handsomeguy</span>
+                        <div>
+                            <img src={More} alt=""></img>
+                        </div>
+                    </header>
+                    <body>
+                        <img src={Content1} alt=""></img>
+                    </body>
+                    <UserAction>
+                        <Img
+                            src={!isActive
+                                ? FullHeart
+                                : EmptyHeart}
+                            alt=""
+                            onClick={compareClick}></Img>
+                        <Img src={Comment}></Img>
+                        <Img src={SharePosts}></Img>
+                        <div>
+                            <Img src={Save}></Img>
+                        </div>
 
-            </SectionFirst>
-            <SectionSecondData>
-                <header>
-                    <img src={KkiSticker} alt=""></img>
-                    <span>handsomeguy</span>
-                    <div>
-                        <img src={More} alt=""></img>
-                    </div>
-                </header>
-                <body>
-                    <img src={Content1} alt=""></img>
-                </body>
-                <UserAction>
-                    <Img
-                        src={!isActive
-                            ? FullHeart
-                            : EmptyHeart}
-                        alt=""
-                        onClick={compareClick}></Img>
-                    <Img src={Comment}></Img>
-                    <Img src={SharePosts}></Img>
-                    <div>
-                        <Img src={Save}></Img>
-                    </div>
+                    </UserAction>
+                    <MyComment>
+                        <p>좋아요 {heartnum}개</p>
+                        <div>
+                            <ul>
+                                {
+                                    comments.map((comment, index) => (
+                                        <li key={index} id="li1">
+                                            <span>
+                                                <strong>{newData.name}</strong>
+                                            </span>
+                                            {comment}
+                                            <div>
+                                                <Img
+                                                    src={commentHearts[index]
+                                                        ? FullHeart
+                                                        : EmptyHeart}
+                                                    alt=""
+                                                    onClick={() => handleCommentHeartClick(index)}/>
+                                            </div>
+                                        </li>
+                                    ))
+                                }
+                            </ul>
+                        </div>
+                    </MyComment>
+                    <InputComment>
+                        <img src={Emoji} alt=""></img>
+                        <div>
+                            <input
+                                type="text"
+                                placeholder="댓글 달기..."
+                                value={comment}
+                                onChange={handleCommentChange}
+                                onKeyPress={handleKeyPress}></input>
 
-                </UserAction>
-                <MyComment>
-                    <p>좋아요 {heartnum}개</p>
-                    <div>
-                        <ul>
-                            {
-                                comments.map((comment, index) => (
-                                    <li key={index} id="li1">
-                                        <span>
-                                            <strong>{newData.name}</strong>
-                                        </span>
-                                        {comment}
-                                        <div>
-                                            {/* <Img
-                                                src={!isActive2
-                                                    ? FullHeart
-                                                    : EmptyHeart}
-                                                alt=""
-                                                onClick={compareClick2}></Img> */}
-                                        <Img
-                                            src={commentHearts[index] ? FullHeart : EmptyHeart}
-                                            alt=""
-                                            onClick={() => handleCommentHeartClick(index)}
-                                        />
-                                        </div>
-                                    </li>
-                                ))
-                            }
-                        </ul>
-                    </div>
-                </MyComment>
-                <InputComment>
-                    <img src={Emoji} alt=""></img>
-                    <div>
-                        <input
-                            type="text"
-                            placeholder="댓글 달기..."
-                            value={comment}
-                            onChange={handleCommentChange}
-                            onKeyPress={handleKeyPress}></input>
-
-                    </div>
-                    <div id="div1">
-                        <button id="myButton" onClick={handlePostComment}>게시</button>
-                    </div>
-                </InputComment>
-            </SectionSecondData>
-
-        </SectionMain>
+                        </div>
+                        <div id="div1">
+                            <button id="myButton" onClick={handlePostComment}>게시</button>
+                        </div>
+                    </InputComment>
+                </SectionSecond>
+            </SectionMain>
+        </div>
     );
 
 }
