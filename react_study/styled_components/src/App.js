@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import styled from 'styled-components';
-import Button from './Button'
+import Button from './Button.js'
 import DangerButton from './DangerButton.js'
 
 
