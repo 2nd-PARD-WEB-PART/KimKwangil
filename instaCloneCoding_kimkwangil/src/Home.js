@@ -1,5 +1,4 @@
-import React from "react";
-import {useState} from "react";
+import React, {useContext, useState} from "react";
 import styled from "styled-components";
 import KkiSticker from './img/KKI_Sticker.png';
 import FullHeart from './img/Icons/fullLike.png';
@@ -11,6 +10,7 @@ import Comment from './img/Icons/Comment.png';
 import Save from './img/Icons/Save.png';
 import Emoji from './img/Icons/Emoji.png';
 import {Link} from "react-router-dom";
+import {UserInfoContext} from "./App"; // App.js에서 생성한 Context를 가져옵니다.
 
 // 메인 section conponent입니다.
 const SectionMain = styled.div `
@@ -21,19 +21,11 @@ const SectionMain = styled.div `
     }
     @media (min-width: 750px) {
         width: 935px;
-        height : 880px;
-
-        
+        height : 880px;        
     }
-
     @media (max-width :750px) and (min-width: 450px){
-        
         width: 500px;
         height : 800px;
-        * {
-            margin : 0;
-            padding : 0;
-        }
     }
     @media (max-width :450px){
         width : 350px;
@@ -45,7 +37,7 @@ const SectionMain = styled.div `
 const SectionFirst = styled.div `
     text-align: right;
     @media (min-width: 750px) {
-    height : 100px;
+        height : 100px;
     }
     @media (max-width :750px) and (min-width: 450px){
         display: none;
@@ -60,24 +52,25 @@ const SectionFristData = styled.div `
 
     @media (min-width: 750px) {
         text-align: left;
-    padding-top: 20px;
-    display: inline-block;
-    width : 35%;
-    height : 100%;
-    img{
-        width :  15%;
-        float : left;
-        margin-right: 30px;
-        border-radius: 50%;
-    }
-    p{
-        padding-top: 10px;
+        padding-top: 20px;
+        display: inline-block;
+        width : 35%;
+        height : 100%;
+        img{
+            width :  15%;
+            float : left;
+            margin-right: 30px;
+            border-radius: 50%;
+        }
+        p{
+            padding-top: 10px;
+        }
     }
     @media (max-width :750px) and (min-width: 450px){
     }
     @media (max-width :450px){
     }
-}
+
 `;
 
 // 두 번째 section conponent입니다.
@@ -123,7 +116,6 @@ const SectionSecond = styled.div `
             } 
         }
     }
-    
     @media (max-width :750px) and (min-width: 450px){
         margin-top: 50px;
         header{
@@ -157,6 +149,7 @@ const UserAction = styled.div `
     padding-left: 20px;
     box-sizing: border-box;
     display: flex;
+
     Img{
         padding-right : 20px;
     }
@@ -164,8 +157,8 @@ const UserAction = styled.div `
         width : 100%;
         text-align: right;
     }
-    @media (min-width: 750px) {
 
+    @media (min-width: 750px) {
     }
     @media (max-width :750px) and (min-width: 450px){
     }
@@ -173,21 +166,18 @@ const UserAction = styled.div `
         Img{
             padding-right: 10px;
         }
-
     }
 
 `;
 
 // 게시물의 댓글이 달리는 conponent입니다.
 const MyComment = styled.div `
-    /* @media (min-width: 750px) { */
     width: 100%;
     border-bottom :  1px solid rgba(0, 0, 0, .1);
     padding : 10px;
     padding-left: 20px;
     box-sizing: border-box;
     li{
-
         list-style: none;
         margin: 10px 0;
 
@@ -204,7 +194,7 @@ const MyComment = styled.div `
             margin-right: 20px;
         }
     }
-    /* } */
+
     @media (max-width :750px) and (min-width: 450px){
     }
     @media (max-width :450px){
@@ -223,13 +213,13 @@ const MyComment = styled.div `
 
 // 게시물의 댓글을 입력하는 conponent입니다.
 const InputComment = styled.div `
-    /* @media (min-width: 750px) { */
     width : 100%;
     height : 50px;
     padding : 10px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
+
     img{
         padding-left: 5px;
         padding-right: 30px;
@@ -252,6 +242,7 @@ const InputComment = styled.div `
             }
         }
     }
+
     #div1{
         width: 10%;
         text-align: right;
@@ -266,7 +257,7 @@ const InputComment = styled.div `
             }
         }
     }
-    /* } */
+
     @media (max-width :750px) and (min-width: 450px){
     }
     @media (max-width :450px){
@@ -284,33 +275,26 @@ const InputComment = styled.div `
 const Img = styled.img `
     width :20px;
     height : 20px;
-    /* @media (min-width: 750px) {
 
-    }
-    @media (max-width :750px) and (min-width: 450px){
-        width : 20px;
-        height : 20px;
-    }
-    */
     @media (max-width :450px){
         width: 15px;
         height : 15px;
     }
-
 `;
 
 // click 여부에 대한 데이터를 저장하는 변수입니다.
 let click = 1;
-let click2 = 1;
 
 // return되는 Content conponent입니다.
-function Content(props) {
+function Content() {
 
-    // state를 관리하는 부분입니다.
-    const [newData, setNewData] = useState(props.myData);
+    // 1. App.js에서 제공한 Context를 가져옵니다.
+    const {userInfo} = useContext(UserInfoContext);
+    const [newData] = useState(userInfo);
+
+    // state를 관리하는 부분입니다. const [newData, setNewData] = useState(props.myData);
     const [heartnum, setHeartnum] = useState(1069);
     const [isActive, setIsActive] = useState(true);
-    const [isActive2, setIsActive2] = useState(true);
     const [comment, setComment] = useState(""); // 댓글 내용을 저장할 상태
     const [comments, setComments] = useState([]); // 댓글 목록을 저장할 상태
 
@@ -394,7 +378,6 @@ function Content(props) {
                             <strong>{newData.name}</strong>
                         </p>
                     </SectionFristData>
-
                 </SectionFirst>
 
                 {/* 두 번째 section을 가리킵니다. (피드가 보여지는 곳) */}
@@ -403,16 +386,13 @@ function Content(props) {
                     <header>
                         {/* 게시자의 프로필*/}
                         <img src={KkiSticker} alt=""></img>
-
                         {/* 게시자의 이름 */}
                         <span>handsomeguy</span>
-
                         <div>
                             {/* 더보기 이미지*/}
                             <img src={More} alt=""></img>
                         </div>
                     </header>
-
                     {/*피드의 사진이 보여집니다.*/}
                     <body>
                         <img src={Content1} alt=""></img>
@@ -437,7 +417,6 @@ function Content(props) {
                     <MyComment>
                         {/* 좋아요 개수 */}
                         <p>좋아요 {heartnum}개</p>
-
                         {/* 댓글을 보여주는 ul */}
                         <div>
                             <ul>
@@ -467,7 +446,6 @@ function Content(props) {
                     <InputComment>
                         {/* 이모지 이미지  */}
                         <img src={Emoji} alt=""></img>
-
                         {/* 댓글을 입력하는 input*/}
                         <div>
                             <input
@@ -476,9 +454,7 @@ function Content(props) {
                                 value={comment}
                                 onChange={handleCommentChange}
                                 onKeyPress={handleKeyPress}></input>
-
                         </div>
-
                         {/* 게시 버튼  */}
                         <div id="div1">
                             <button id="myButton" onClick={handlePostComment}>게시</button>

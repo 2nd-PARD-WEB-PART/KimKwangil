@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import MyPage from './MyPage';
 import Home from './Home';
 import EditProfile from './EditProfile';
 import Layout from './Layout';
 import Content from './Home';
+
+// Context 생성
+export const UserInfoContext = createContext();
+// export 키워드를 추가하여 다른 파일에서도 해당 context를 사용할 수 있도록 한다.
 
 function App() {
     // 초기 유저 정보
@@ -25,14 +29,19 @@ function App() {
     };
 
     return (
-        <Routes>
-            <Route path="/" element={<Layout />}>
-                <Route index="index" element={<Home myData={userInfo} />} />
-                <Route path="/MyPage" element={<MyPage myData={userInfo} />} />
-                <Route path="/EditProfile" element={<EditProfile myData={userInfo} onUserDataChange={updateUserInfo} />} />
-                <Route path="/Content" element={<Content myData={userInfo} />} />
-            </Route>
-        </Routes>
+        // 2. Provider로 상태를 제공
+        <UserInfoContext.Provider value={{ userInfo, updateUserInfo }}>
+            <Routes>
+                <Route path="/" element={<Layout />}>
+
+                    {/* 각 element에 있어서 props로 값을 넘겨주지 않아도 된다. */}
+                    <Route index="index" element={<Home />} />
+                    <Route path="/MyPage" element={<MyPage />} />
+                    <Route path="/EditProfile" element={<EditProfile />} />
+                    <Route path="/Content" element={<Content />} />
+                </Route>
+            </Routes>
+        </UserInfoContext.Provider>
     );
 }
 
