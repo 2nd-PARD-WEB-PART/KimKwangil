@@ -10,10 +10,31 @@
 
 파디로 활동하면서 주어진 세미나 과제 혹은 개인 공부에 대한 기록을 공유하고 있습니다.
 
+<br>
+
 ### 프로젝트
 
-1. 자기소개 페이지 제작하기
-2. 인스타그램 클론 코딩하기
+#### [0] 개인 공부
+
+- React 환경에서 개발을 위한 개인 공부 기록 프로젝트<br>
+
+  - [소스 코드 보러 가기](https://github.com/2nd-PARD-WEB-PART/KimKwangil/tree/main/react_study)
+
+#### [1] 자기소개 페이지 제작하기
+
+- React 환경에서 Javascript와 CSS를 활용하여 자신을 소개하는 페이지를 제작하는 프로젝트<br>
+
+  - [소스 코드 보러 가기](https://github.com/2nd-PARD-WEB-PART/KimKwangil/tree/main/ot_homework_kimkwangil)
+
+#### [2] 인스타그램 클론 코딩하기
+
+- React 환경에서 (구버전)instargram의 WebSite를 clone coding하는 프로젝트<br>
+
+  - 버전1 : [소스 코드 보러 가기](https://github.com/2nd-PARD-WEB-PART/KimKwangil/tree/main/1st_assignment_kimkwangil)
+
+  - 버전2 : [소스 코드 보러 가기](https://github.com/2nd-PARD-WEB-PART/KimKwangil/tree/main/instaCloneCoding_kimkwangil)
+
+<br>
 
 ### 개발 환경 및 언어
 
