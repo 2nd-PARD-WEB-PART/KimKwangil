@@ -154,15 +154,19 @@ const Img2 = styled.img `
     height: 40px;
     border-radius: 50%;
 `;
+
 // EditProfile 컴포넌트입니다. (메인)
 function EditProfile() {
 
     // state를 관리하는 선언 부분
+    const [newURL, setNewURL] = useState();
+    const [imgChange, setImgChange] = useState(false);
     const navigate = useNavigate();
     const {userInfo, updateUserInfo} = useContext(UserInfoContext);
 
     // 기존 데이터를 가져와서 수정을 위한 데이터로 초기화
     const [newData, setNewData] = useState(userInfo);
+    console.log(newData.imgURL);
     const [isDataChanged, setIsDataChanged] = useState(false);
 
     // 전송을 위한 핸들러입니다. const handleFormSubmit = (e) => {     e.preventDefault();
@@ -186,7 +190,7 @@ function EditProfile() {
             button.style.backgroundColor = "rgba(0, 149, 246, 0.25)";
         }
     };
-    console.log("전체 결과" + newData.imgURL);
+
     // 파일을 변경하는 핸들러입니다.
     const handleFileChange = (e) => {
         const file = e
@@ -196,6 +200,7 @@ function EditProfile() {
             ...newData,
             imgURL: file
         });
+        setImgChange(true);
         // 이미지 미리보기
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -205,46 +210,48 @@ function EditProfile() {
                 .src = reader.result;
         };
         reader.readAsDataURL(file);
-
-        const formData = new FormData();
-
-        formData.append("image", e.target.files[0]);
-        axios
-            .post("http://3.35.236.83/image", formData)
-            .then((response) => {
-
-                console.log("이미지가 성공적으로 업로드되었습니다:", response.data);
-
-                // 서버에서의 응답을 처리합니다.
-            })
-            .catch((error) => {
-                console.error("이미지 업로드 중 오류 발생:", error);
-                // 오류를 처리합니다.
-            });
     };
 
     // 전송을 위한 핸들러입니다.
     const handleFormSubmit = async (e) => {
         e.preventDefault();
+        if (imgChange) {
+            const formData = new FormData();
 
-        try {
-            // 주석 처리된 부분을 해제하여 실제로 서버에 데이터를 보내도록 수정
-            const response = await axios.patch(
-                'http://3.35.236.83/pard/update/김광일',
-                newData
-            );
+            formData.append("image", e.target.files[0]);
+            axios
+                .post("http://3.35.236.83/image", formData)
+                .then((response) => {
 
-            console.log('API Response: ', response.data);
+                    console.log("이미지가 성공적으로 업로드되었습니다:", response.data);
 
-            // 수정된 데이터(newData)를 Context를 통해 업데이트
-            updateUserInfo(newData);
+                    // 서버에서의 응답을 처리합니다.
+                })
+                .catch((error) => {
+                    console.error("이미지 업로드 중 오류 발생:", error);
+                    // 오류를 처리합니다.
+                });
+            
+            try {
+                // 주석 처리된 부분을 해제하여 실제로 서버에 데이터를 보내도록 수정
+                const response = await axios.patch(
+                    'http://3.35.236.83/pard/update/김광일',
+                    newData
+                );
 
-            navigate('/');
-            alert("수정 되었습니다.");
-        } catch (error) {
-            console.error('Error updating profile: ', error);
-            alert("수정에 실패했습니다.");
+                // console.log('API Response: ', response.data); 수정된 데이터(newData)를 Context를 통해
+                // 업데이트
+                updateUserInfo(newData);
+
+                navigate('/');
+                alert("수정 되었습니다.");
+            } catch (error) {
+                console.error('Error updating profile: ', error);
+                alert("수정에 실패했습니다.");
+            }
+
         }
+
     };
 
     return (
@@ -281,11 +288,7 @@ function EditProfile() {
                                 <td>
                                     {/* 사용자 사진 */}
                                     {/* <Img src={KKI_Sticker}></Img> */}
-                                    <Img
-                                        id="profileImagePreview"
-                                        src={newData.imgURL
-                                            ? URL.createObjectURL(newData.imgURL)
-                                            : KKI_Sticker}/>
+                                    <Img id="profileImagePreview" src={newData.imgURL}/>
 
                                 </td>
                                 <td>
