@@ -4,6 +4,7 @@ import meta from './img/meta.svg';
 import KKI_Sticker from './img/KKI_Sticker.png';
 import {useNavigate} from 'react-router-dom';
 import {UserInfoContext} from './App'; // App.js에서 생성한 Context를 import합니다.
+import axios from "axios";
 
 // Body 영역 Component입니다.
 const Body = styled.div `
@@ -148,6 +149,11 @@ const FileInputLabel = styled.label `
     cursor: pointer;
 `;
 
+const Img2 = styled.img `
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+`;
 // EditProfile 컴포넌트입니다. (메인)
 function EditProfile() {
 
@@ -159,16 +165,9 @@ function EditProfile() {
     const [newData, setNewData] = useState(userInfo);
     const [isDataChanged, setIsDataChanged] = useState(false);
 
-    // 전송을 위한 핸들러입니다.
-    const handleFormSubmit = (e) => {
-        e.preventDefault();
-        // 2. 수정된 데이터(newData)를 Context를 통해 업데이트
-        updateUserInfo(newData);
-        navigate('/');
-        alert("수정 되었습니다.");
-    };
-
-    // 입력 변경 시 반영하는 핸들러입니다.
+    // 전송을 위한 핸들러입니다. const handleFormSubmit = (e) => {     e.preventDefault();
+    // 2. 수정된 데이터(newData)를 Context를 통해 업데이트     updateUserInfo(newData);
+    // navigate('/');     alert("수정 되었습니다."); }; 입력 변경 시 반영하는 핸들러입니다.
     const handleInputChange = (e) => {
         const fieldName = e.target.name;
         const fieldValue = e.target.value;
@@ -187,10 +186,65 @@ function EditProfile() {
             button.style.backgroundColor = "rgba(0, 149, 246, 0.25)";
         }
     };
-
+    console.log("전체 결과" + newData.imgURL);
     // 파일을 변경하는 핸들러입니다.
     const handleFileChange = (e) => {
-        // const file = e.target.files[0]; 파일 관련 작업 수행
+        const file = e
+            .target
+            .files[0];
+        setNewData({
+            ...newData,
+            imgURL: file
+        });
+        // 이미지 미리보기
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            // reader.result는 데이터 URL 형식입니다. 이를 이용하여 이미지를 미리보기로 표시할 수 있습니다.
+            document
+                .getElementById("profileImagePreview")
+                .src = reader.result;
+        };
+        reader.readAsDataURL(file);
+
+        const formData = new FormData();
+
+        formData.append("image", e.target.files[0]);
+        axios
+            .post("http://3.35.236.83/image", formData)
+            .then((response) => {
+
+                console.log("이미지가 성공적으로 업로드되었습니다:", response.data);
+
+                // 서버에서의 응답을 처리합니다.
+            })
+            .catch((error) => {
+                console.error("이미지 업로드 중 오류 발생:", error);
+                // 오류를 처리합니다.
+            });
+    };
+
+    // 전송을 위한 핸들러입니다.
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            // 주석 처리된 부분을 해제하여 실제로 서버에 데이터를 보내도록 수정
+            const response = await axios.patch(
+                'http://3.35.236.83/pard/update/김광일',
+                newData
+            );
+
+            console.log('API Response: ', response.data);
+
+            // 수정된 데이터(newData)를 Context를 통해 업데이트
+            updateUserInfo(newData);
+
+            navigate('/');
+            alert("수정 되었습니다.");
+        } catch (error) {
+            console.error('Error updating profile: ', error);
+            alert("수정에 실패했습니다.");
+        }
     };
 
     return (
@@ -226,7 +280,13 @@ function EditProfile() {
                             <tr>
                                 <td>
                                     {/* 사용자 사진 */}
-                                    <Img src={KKI_Sticker}></Img>
+                                    {/* <Img src={KKI_Sticker}></Img> */}
+                                    <Img
+                                        id="profileImagePreview"
+                                        src={newData.imgURL
+                                            ? URL.createObjectURL(newData.imgURL)
+                                            : KKI_Sticker}/>
+
                                 </td>
                                 <td>
                                     {/* 사용자 이름 */}
@@ -251,9 +311,35 @@ function EditProfile() {
                                         onChange={handleInputChange}></MyInput>
                                 </td>
                             </tr>
+                            {/* 사용자 나이 변경 영역 */}
+                            <tr>
+                                <td>
+                                    <label>나이</label>
+                                </td>
+                                <td>
+                                    <MyInput
+                                        type="text"
+                                        name="age"
+                                        value={newData.age}
+                                        onChange={handleInputChange}></MyInput>
+                                </td>
+                            </tr>
+                            {/* 사용자 이름 변경 영역 */}
+                            <tr>
+                                <td>
+                                    <label>파트</label>
+                                </td>
+                                <td>
+                                    <MyInput
+                                        type="text"
+                                        name="part"
+                                        value={newData.part}
+                                        onChange={handleInputChange}></MyInput>
+                                </td>
+                            </tr>
 
                             {/* 사용자 소개 변경 영역 */}
-                            <tr>
+                            {/* <tr>
                                 <td>
                                     <label>소개</label>
                                 </td>
@@ -263,10 +349,11 @@ function EditProfile() {
                                         value={newData.introduction}
                                         onChange={handleInputChange}></textarea>
                                 </td>
-                            </tr>
+                            </tr> */
+                            }
 
                             {/* 사용자 웹사이트 변경 영역 */}
-                            <tr>
+                            {/* <tr>
                                 <td>
                                     <label>웹사이트</label>
                                 </td>
@@ -277,10 +364,11 @@ function EditProfile() {
                                         value={newData.website}
                                         onChange={handleInputChange}></MyInput>
                                 </td>
-                            </tr>
+                            </tr> */
+                            }
 
                             {/* 사용자 이메일 변경 영역 */}
-                            <tr>
+                            {/* <tr>
                                 <td>
                                     <label>이메일</label>
                                 </td>
@@ -291,10 +379,11 @@ function EditProfile() {
                                         value={newData.email}
                                         onChange={handleInputChange}></MyInput>
                                 </td>
-                            </tr>
+                            </tr> */
+                            }
 
                             {/* 사용자 성별 변경 영역 */}
-                            <tr>
+                            {/* <tr>
                                 <td>
                                     <label>성별</label>
                                 </td>
@@ -305,7 +394,8 @@ function EditProfile() {
                                         value={newData.gender}
                                         onChange={handleInputChange}></MyInput>
                                 </td>
-                            </tr>
+                            </tr> */
+                            }
 
                             {/* 수정 사항 전송 버튼 영역 */}
                             <tr>
