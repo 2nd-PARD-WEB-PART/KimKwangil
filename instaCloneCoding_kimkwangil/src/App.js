@@ -18,10 +18,9 @@ function App() {
         axios
             .get("http://3.35.236.83/pard/search/김광일")
             .then((response) => {
-                console.log("response: " + JSON.stringify(response.data.data));
+                // console.log("response: " + JSON.stringify(response.data.data));
                 setData(response.data.data);
                 setUserInfo((prevUserInfo) => ({
-                    
                     name: response.data.data.name,
                     age: response.data.data.age,
                     part: response.data.data.part,

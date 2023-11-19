@@ -166,7 +166,7 @@ function EditProfile() {
 
     // 기존 데이터를 가져와서 수정을 위한 데이터로 초기화
     const [newData, setNewData] = useState(userInfo);
-    console.log(newData.imgURL);
+    console.log("newData의 이미지 URL : " + newData.imgURL);
     const [isDataChanged, setIsDataChanged] = useState(false);
 
     // 전송을 위한 핸들러입니다. const handleFormSubmit = (e) => {     e.preventDefault();
@@ -200,6 +200,8 @@ function EditProfile() {
             ...newData,
             imgURL: file
         });
+        console.log("newData : " + newData.imgURL);
+        
         setImgChange(true);
         // 이미지 미리보기
         const reader = new FileReader();
@@ -215,6 +217,7 @@ function EditProfile() {
     // 전송을 위한 핸들러입니다.
     const handleFormSubmit = async (e) => {
         e.preventDefault();
+
         if (imgChange) {
             const formData = new FormData();
 
